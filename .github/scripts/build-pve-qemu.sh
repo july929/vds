@@ -6,7 +6,7 @@ export DEBIAN_FRONTEND=noninteractive
 APT_UPDATE="apt-get update --allow-releaseinfo-change"
 
 $APT_UPDATE
-apt-get install -y --no-install-recommends python3-venv git libacl1-dev libaio-dev libattr1-dev libcap-ng-dev libcurl4-gnutls-dev libepoxy-dev libfdt-dev libgbm-dev libgnutls28-dev libiscsi-dev libjpeg-dev libnuma-dev libpci-dev libpixman-1-dev libproxmox-backup-qemu0-dev librbd-dev libsdl1.2-dev libseccomp-dev libslirp-dev libspice-protocol-dev libspice-server-dev libsystemd-dev liburing-dev libusb-1.0-0-dev libusbredirparser-dev libvirglrenderer-dev meson python3-sphinx python3-sphinx-rtd-theme quilt xfslibs-dev
+apt-get install -y --no-install-recommends python3-venv git 
 apt-get install -y "$DEBS"/libvds0_*.deb "$DEBS"/libvds-dev_*.deb
 
 cd "$SRC"
@@ -47,7 +47,9 @@ if [ "${DEVIRT_ENABLE:-1}" = "1" ]; then
   cd ..
   cd ..
 fi
-
+echo "deb-src https://mirrors.ustc.edu.cn/debian trixie main contrib non-free non-free-firmware" > /etc/apt/sources.list.d/debian-src.list
+echo "deb-src https://mirrors.ustc.edu.cn/debian trixie-updates main contrib non-free non-free-firmware" >> /etc/apt/sources.list.d/debian-src.list
+echo "deb-src https://mirrors.ustc.edu.cn/debian trixie-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list.d/debian-src.list
 $APT_UPDATE
 mk-build-deps --install --remove --tool "apt-get -y --no-install-recommends" debian/control
 DEB_BUILD_OPTIONS="parallel=$(nproc)" make deb
