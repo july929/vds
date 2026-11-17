@@ -30,13 +30,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [bookworm, trixie]
-        arch: [amd64, arm64]
+        suite: [trixie]
+        arch: [amd64]
         include:
           - arch: amd64
             runner: ubuntu-24.04
-          - arch: arm64
-            runner: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v4
 
@@ -68,19 +66,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [bookworm, trixie]
-        arch: [amd64, arm64]
+        suite: [trixie]
+        arch: [amd64]
         include:
-          - suite: bookworm
-            pve: 8
-            branch: vds-pve8
           - suite: trixie
             pve: 9
             branch: vds-pve9
           - arch: amd64
             runner: ubuntu-24.04
-          - arch: arm64
-            runner: ubuntu-24.04-arm
     steps:
       # A full QEMU package build needs well over the ~14 GB a runner has free.
       - name: Free disk space
