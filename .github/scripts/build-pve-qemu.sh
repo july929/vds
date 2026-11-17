@@ -49,6 +49,16 @@ if [ "${DEVIRT_ENABLE:-1}" = "1" ]; then
 fi
 
 $APT_UPDATE
+if [ ! -f /etc/apt/sources.list.d/debian.sources ]; then
+    cat > /etc/apt/sources.list.d/debian.sources <<'EOF'
+Types: deb deb-src
+URIs: https://mirrors.ustc.edu.cn/debian
+Suites: trixie trixie-updates trixie-security
+Components: main contrib non-free non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+EOF
+    $APT_UPDATE
+fi
 mk-build-deps --install --remove --tool "apt-get -y --no-install-recommends" debian/control
 DEB_BUILD_OPTIONS="parallel=$(nproc)" make deb
 ls -la ./*.deb
