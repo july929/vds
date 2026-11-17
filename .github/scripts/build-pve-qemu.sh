@@ -49,7 +49,7 @@ if [ "${DEVIRT_ENABLE:-1}" = "1" ]; then
 fi
 echo "deb-src https://mirrors.ustc.edu.cn/debian trixie main contrib non-free non-free-firmware" > /etc/apt/sources.list.d/debian-src.list
 echo "deb-src https://mirrors.ustc.edu.cn/debian trixie-updates main contrib non-free non-free-firmware" >> /etc/apt/sources.list.d/debian-src.list
-echo "deb-src https://mirrors.ustc.edu.cn/debian trixie-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list.d/debian-src.list
+echo "deb-src https://mirrors.ustc.edu.cn/debian-security trixie-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list.d/debian-src.list
 $APT_UPDATE
 mk-build-deps --install --remove --tool "apt-get -y --no-install-recommends" debian/control
 DEB_BUILD_OPTIONS="parallel=$(nproc)" make deb
