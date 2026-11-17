@@ -19,9 +19,12 @@ if [ ! -d qemu/subprojects/keycodemapdb ]; then
   (cd qemu && /tmp/meson/bin/meson subprojects download)
 fi
 
-# --- Optional de-virtualization patches -----------------------------------
-if [ "${DEVIRT_ENABLE:-0}" = "1" ]; then
-  : "${DEVIRT_PATCH_DIR:?DEVIRT_PATCH_DIR must point to the de-virt patch files}"
+if [ "${DEVIRT_ENABLE:-1}" = "1" ]; then
+  DEVIRT_PATCH_DIR="${DEVIRT_PATCH_DIR:-$(dirname "$0")/devirt-files}"
+  if [ ! -d "$DEVIRT_PATCH_DIR" ]; then
+    echo "ERROR: de-virt patch dir not found: $DEVIRT_PATCH_DIR" >&2
+    exit 1
+  fi
   cd qemu
 
   cp "$DEVIRT_PATCH_DIR/sedPatch-pve-qemu-kvm11-anti-dection.sh" ./
@@ -44,7 +47,6 @@ if [ "${DEVIRT_ENABLE:-0}" = "1" ]; then
   cd ..
   cd ..
 fi
-# --- End optional de-virtualization patches -------------------------------
 
 $APT_UPDATE
 mk-build-deps --install --remove --tool "apt-get -y --no-install-recommends" debian/control
