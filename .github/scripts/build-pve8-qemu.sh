@@ -2,10 +2,10 @@
 # Builds pve-qemu-kvm with -rdp inside a pxvirt builder container, the standard way:
 #   apt update && mk-build-deps --install --remove && make deb
 # Optionally applies de-virtualization (anti-detection) patches before building,
-# migrated from build_pve_qemu_pve9.sh.
+# migrated from build_pve_qemu_pve8.sh.
 # Usage: build-pve-qemu.sh PVE_QEMU_DIR LIBVDS_DEB_DIR [DEVIRT_DIR]
 #   DEVIRT_DIR: directory holding anti-detection resources
-#               (sedPatch-pve-qemu-kvm11-anti-dection.sh, smbios.h, smbios.c, bootsplash.jpg)
+#               (sedPatch-pve8-anti-dection.sh, smbios.h, smbios.c, bootsplash.jpg)
 #               Defaults to PVE_QEMU_DIR. Set DEVIRT=0 to skip de-virtualization.
 set -euxo pipefail
 SRC=${1:?pve-qemu checkout}
@@ -29,7 +29,7 @@ if [ ! -d qemu/subprojects/keycodemapdb ]; then
   (cd qemu && /tmp/meson/bin/meson subprojects download)
 fi
 
-# ---- De-virtualization patches (migrated from build_pve_qemu_pve9.sh) ----
+# ---- De-virtualization patches (migrated from build_pve_qemu_pve8.sh) ----
 # Apply anti-detection customizations inside qemu/ before make deb.
 # The original script ran these from within qemu/, using ../ and ../../ relative
 # paths for resources; here we resolve them via DEVIRT_DIR.
