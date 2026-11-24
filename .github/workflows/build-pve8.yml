@@ -104,7 +104,7 @@ jobs:
         run: |
           docker run --rm -v "$GITHUB_WORKSPACE:/work" -w /work \
             pxvirt/pxvirt-builder-${{ matrix.suite }}:latest \
-            bash /work/vds/.github/scripts/build-pve9-qemu.sh \
+            bash /work/vds/.github/scripts/build-pve8-qemu.sh \
               /work/pve-qemu /work/libvds /work/vds/.github/scripts/pve8-qemu10
 
       # The dbgsym package (hundreds of MB) stays out of the bundle.
