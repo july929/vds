@@ -1,4 +1,4 @@
-name: build
+name: build-pve8
 
 # Every push builds the libvds Debian packages for PVE 8 (bookworm) and PVE 9 (trixie), amd64
 # and arm64. The pve-qemu-kvm packages with -rdp take hours, so they are built only for tags
