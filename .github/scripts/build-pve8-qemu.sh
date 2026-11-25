@@ -47,12 +47,12 @@ if [ "$DEVIRT" = "1" ] && [ -d "$DEVIRT_DIR" ]; then
     cp "$DEVIRT_DIR/smbios.c" hw/smbios/smbios.c
 
     # 3. Seabios boot splash replacement
-    cp "$DEVIRT_DIR/bootsplash.jpg" pc-bios/bootsplash.jpg
-    sed -i "s/vgabios.bin/vgabios.bin',\n\t'bootsplash.jpg/g" pc-bios/meson.build
-    sed -i 's/current_machine->boot_config.splash;/"\/usr\/share\/kvm\/bootsplash.jpg";/g' hw/nvram/fw_cfg.c
+    #cp "$DEVIRT_DIR/bootsplash.jpg" pc-bios/bootsplash.jpg
+    #sed -i "s/vgabios.bin/vgabios.bin',\n\t'bootsplash.jpg/g" pc-bios/meson.build
+    #sed -i 's/current_machine->boot_config.splash;/"\/usr\/share\/kvm\/bootsplash.jpg";/g' hw/nvram/fw_cfg.c
 
     # 4. IGD patch
-    sed -i 's/!object_dynamic_cast/object_dynamic_cast/g' hw/vfio/igd.c
+    #sed -i 's/!object_dynamic_cast/object_dynamic_cast/g' hw/vfio/igd.c
 
     # Optional: capture the applied patch for reference (not needed for build)
     git diff --submodule=diff > "$DEVIRT_DIR/qemu-autoGenPatch.patch" || true
